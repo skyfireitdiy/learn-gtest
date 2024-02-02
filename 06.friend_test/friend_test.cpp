@@ -13,11 +13,11 @@ public:
     {
     }
 
-    friend class CircelTest;
-    FRIEND_TEST(CircelTest, Area);
+    friend class CircleTest;
+    FRIEND_TEST(CircleTest, Area);
 };
 
-TEST(CircelTest, Area)
+TEST(CircleTest, Area)
 {
     Circle c(5);
     EXPECT_EQ(c.area_, 78.5);
