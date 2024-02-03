@@ -2,12 +2,12 @@
 
 int throw_func(int a)
 {
-    if (a == 0){
+    if (a == 0)
+    {
         throw 0;
     }
     return 0;
 }
-
 
 TEST(ExpectThrowTest, ExpectThrow)
 {
