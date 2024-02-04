@@ -20,6 +20,10 @@ void sub_routine_expect()
 
 void sub_routine_assert()
 {
+    {
+        ASSERT_EQ(0, 2);
+        ASSERT_EQ(3, 4);
+    }
     ASSERT_EQ(0, 2);
     ASSERT_EQ(3, 4);
 }
