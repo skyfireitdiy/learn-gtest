@@ -7,7 +7,7 @@ function(add_gtest name files)
     file(GLOB sources ${files})
     target_sources(${name} PRIVATE ${sources} main.cpp)
     target_compile_options(${name} PRIVATE -std=c++23)
-    target_link_libraries(${name} PRIVATE gtest)
+    target_link_libraries(${name} PRIVATE gtest gmock)
 endfunction(add_gtest name f)
 
 file(GLOB dir_list [0-9][0-9].*)
