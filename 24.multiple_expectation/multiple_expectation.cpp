@@ -33,3 +33,47 @@ TEST(Calc, MockCalcTestCase1)
     EXPECT_EQ(UseCalc(calc, 6, 10), 10);
     EXPECT_EQ(UseCalc(calc, 5, 10), 20);
 }
+
+// TEST(Calc, MockCalcTestCase2)
+// {
+// MockCalc calc;
+//
+// for (int i = 0; i < 3; ++i)
+// {
+// EXPECT_CALL(calc, Do)
+// .WillOnce(Return(10 * i));
+// }
+//
+// EXPECT_EQ(UseCalc(calc, 5, 10), 20);
+// }
+
+TEST(Calc, MockCalcTestCase3)
+{
+    MockCalc calc;
+
+    for (int i = 0; i < 3; ++i)
+    {
+        EXPECT_CALL(calc, Do(i, _))
+            .WillOnce(Return(10 * i));
+    }
+
+    EXPECT_EQ(UseCalc(calc, 0, 10), 0);
+    EXPECT_EQ(UseCalc(calc, 1, 10), 10);
+    EXPECT_EQ(UseCalc(calc, 2, 10), 20);
+}
+
+TEST(Calc, MockCalcTestCase4)
+{
+    MockCalc calc;
+
+    for (int i = 0; i < 3; ++i)
+    {
+        EXPECT_CALL(calc, Do)
+            .WillOnce(Return(10 * i))
+            .RetiresOnSaturation();
+    }
+
+    EXPECT_EQ(UseCalc(calc, 5, 10), 20);
+    EXPECT_EQ(UseCalc(calc, 5, 10), 10);
+    EXPECT_EQ(UseCalc(calc, 5, 10), 0);
+}
