@@ -20,9 +20,7 @@ int UseCalc(Calc &c, int a, int b, bool d)
     return d ? c.Do(a, b) : c.Do1(a, b);
 }
 
-using testing::_;
 using testing::InSequence;
-using testing::Return;
 
 TEST(Calc, MockCalcTestCase1)
 {
