@@ -4,14 +4,14 @@
 
 class Calc
 {
-    public:
+public:
     virtual int calc(int a, int b, int c) = 0;
     virtual int calc(int a, int b) = 0;
 };
 
-class MockCalc: public Calc
+class MockCalc : public Calc
 {
-    public:
+public:
     MOCK_METHOD(int, calc, (int a, int b, int c), (override));
     MOCK_METHOD(int, calc, (int a, int b), (override));
 };
@@ -24,7 +24,7 @@ TEST(TestCalc, Case1)
     MockCalc calc;
     EXPECT_CALL(calc, calc(_, _)).With(Lt());
 
-    calc.calc(3,4);
+    calc.calc(3, 4);
 }
 
 using testing::AllArgs;
@@ -34,19 +34,17 @@ TEST(TestCalc, Case2)
     MockCalc calc;
     EXPECT_CALL(calc, calc(_, _)).With(AllArgs(Lt()));
 
-    calc.calc(3,4);
+    calc.calc(3, 4);
 }
 
 using testing::AllOf;
 using testing::Args;
 using testing::Gt;
 
-
 TEST(TestCalc, Case3)
 {
     MockCalc calc;
     EXPECT_CALL(calc, calc(_, _, _)).With(AllOf(Args<0, 1>(Lt()), Args<1, 2>(Gt())));
 
-    calc.calc(3,4, 2);
+    calc.calc(3, 4, 2);
 }
-

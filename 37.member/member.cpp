@@ -14,19 +14,20 @@ struct Complex
 
     string toString() const
     {
-        if(r == 0) {
-            if(i == 0)
+        if (r == 0)
+        {
+            if (i == 0)
             {
                 return "0";
-            } 
-            else 
+            }
+            else
             {
                 return to_string(i) + "i";
             }
         }
         else
         {
-            if(i == 0)
+            if (i == 0)
             {
                 return to_string(r);
             }
@@ -40,19 +41,19 @@ struct Complex
 
 class Calc
 {
-    public:
+public:
     virtual Complex calc(Complex a, Complex b) = 0;
 };
 
-class MockCalc : public Calc 
+class MockCalc : public Calc
 {
-    public:
+public:
     MOCK_METHOD(Complex, calc, (Complex a, Complex b), (override));
 };
 
+using testing::_;
 using testing::Field;
 using testing::Gt;
-using testing::_;
 
 void PrintTo(const Complex &c, std::ostream *out)
 {
@@ -64,7 +65,7 @@ TEST(TestCalc, Case1)
     MockCalc calc;
     EXPECT_CALL(calc, calc(Field("real part", &Complex::r, Gt(0)), _));
 
-    calc.calc(Complex{1,2}, Complex{1,2});
+    calc.calc(Complex {1, 2}, Complex {1, 2});
 }
 
 using testing::Property;
@@ -75,7 +76,7 @@ TEST(TestCalc, Case2)
     MockCalc calc;
     EXPECT_CALL(calc, calc(Property("complex string", &Complex::toString, StartsWith("3")), _));
 
-    calc.calc(Complex{3,2}, Complex{1,2});
+    calc.calc(Complex {3, 2}, Complex {1, 2});
 }
 
 using testing::AllOf;
@@ -84,11 +85,10 @@ TEST(TestCalc, Case3)
 {
     MockCalc calc;
     EXPECT_CALL(calc, calc(
-        AllOf(
-            Field("real part", &Complex::r, Gt(0)),
-            Field("image part", &Complex::i, Gt(0))
-        ), 
-        _));
+                          AllOf(
+                              Field("real part", &Complex::r, Gt(0)),
+                              Field("image part", &Complex::i, Gt(0))),
+                          _));
 
-    calc.calc(Complex{1,2}, Complex{1,2});
+    calc.calc(Complex {1, 2}, Complex {1, 2});
 }

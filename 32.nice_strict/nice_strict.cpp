@@ -3,14 +3,14 @@
 
 class Calc
 {
-    public:
-    virtual int add(int a,int b) = 0;
-    virtual int sub(int a,int b) = 0;
+public:
+    virtual int add(int a, int b) = 0;
+    virtual int sub(int a, int b) = 0;
 };
 
-class MockCalc: public Calc
+class MockCalc : public Calc
 {
-    public:
+public:
     MOCK_METHOD(int, add, (int a, int b), (override));
     MOCK_METHOD(int, sub, (int a, int b), (override));
 };
