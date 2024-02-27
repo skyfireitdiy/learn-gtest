@@ -1,14 +1,14 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-class Calc {
-    public:
+class Calc
+{
+public:
     virtual int calc(int a) = 0;
-    virtual int calc(int a,int b) = 0;
+    virtual int calc(int a, int b) = 0;
     virtual int calc(int a) const = 0;
     virtual int calc(double a) = 0;
 };
-
 
 int UseCalc(Calc &c, int a)
 {
@@ -30,11 +30,9 @@ int UseCalc(Calc &c, int a, int b)
     return c.calc(a, b);
 }
 
-
-
-class MockCalc: public Calc 
+class MockCalc : public Calc
 {
-    public:
+public:
     MOCK_METHOD(int, calc, (int a), (override));
     MOCK_METHOD(int, calc, (int a, int b), (override));
     MOCK_METHOD(int, calc, (int a), (override, const));
@@ -42,9 +40,9 @@ class MockCalc: public Calc
 };
 
 using testing::_;
+using testing::An;
 using testing::Const;
 using testing::Return;
-using testing::An;
 
 TEST(TestCalc, Case1)
 {
@@ -58,8 +56,8 @@ TEST(TestCalc, Case1)
     EXPECT_CALL(calc, calc(An<double>())).Times(1).WillRepeatedly(Return(4));
 
     EXPECT_EQ(UseCalc(calc, 1), 1);
-    EXPECT_EQ(UseCalc(calc, 2,3), 2);
-    EXPECT_EQ(UseCalc(calc, 4,5), 2);
+    EXPECT_EQ(UseCalc(calc, 2, 3), 2);
+    EXPECT_EQ(UseCalc(calc, 4, 5), 2);
     EXPECT_EQ(UseCalc(calc2, 1), 3);
     EXPECT_EQ(UseCalc(calc, 1.0), 4);
 }
