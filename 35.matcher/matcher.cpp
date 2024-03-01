@@ -45,7 +45,9 @@ TEST(TestAdd, Case2)
                           _))
         .WillRepeatedly(Return(10));
 
-    EXPECT_EQ(calc.add(5, 6), 10);
+    EXPECT_THAT(calc.add(5, 6), Truly([](int x) {
+                    return x == 10;
+                }));
     EXPECT_EQ(calc.add(0, 6), 100);
 }
 
