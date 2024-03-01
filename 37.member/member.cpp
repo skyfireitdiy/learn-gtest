@@ -57,15 +57,15 @@ using testing::Gt;
 
 void PrintTo(const Complex &c, std::ostream *out)
 {
-    *out << c.toString() << endl;
+    *out << c.toString();
 }
 
 TEST(TestCalc, Case1)
 {
     MockCalc calc;
-    EXPECT_CALL(calc, calc(Field("real part", &Complex::r, Gt(0)), _));
+    EXPECT_CALL(calc, calc(Field("r", &Complex::r, Gt(0)), _));
 
-    calc.calc(Complex {1, 2}, Complex {1, 2});
+    calc.calc(Complex {0, 2}, Complex {1, 2});
 }
 
 using testing::Property;
@@ -74,7 +74,7 @@ using testing::StartsWith;
 TEST(TestCalc, Case2)
 {
     MockCalc calc;
-    EXPECT_CALL(calc, calc(Property("complex string", &Complex::toString, StartsWith("3")), _));
+    EXPECT_CALL(calc, calc(Property("toString", &Complex::toString, StartsWith("3")), _));
 
     calc.calc(Complex {3, 2}, Complex {1, 2});
 }
@@ -86,8 +86,8 @@ TEST(TestCalc, Case3)
     MockCalc calc;
     EXPECT_CALL(calc, calc(
                           AllOf(
-                              Field("real part", &Complex::r, Gt(0)),
-                              Field("image part", &Complex::i, Gt(0))),
+                              Field("r", &Complex::r, Gt(0)),
+                              Field("i", &Complex::i, Gt(0))),
                           _));
 
     calc.calc(Complex {1, 2}, Complex {1, 2});
