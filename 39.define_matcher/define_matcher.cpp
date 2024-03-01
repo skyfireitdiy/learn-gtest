@@ -38,7 +38,7 @@ public:
 
 using testing::Matcher;
 
-::testing::Matcher<int> Div(int n)
+Matcher<int> Div(int n)
 {
     return DivMatcher(n);
 }
@@ -63,7 +63,7 @@ TEST(TestCalc, Case1)
     c.calc(6, 10);
 }
 
-MATCHER(Div2, (negation ? "is not" : "is ") + string(" divisible by 2"))
+MATCHER(Div2, (negation ? "is not" : "is") + string(" divisible by 2"))
 {
     return (arg % 2) == 0;
 }
@@ -76,7 +76,7 @@ TEST(TestCalc, Case2)
     c.calc(6, 10);
 }
 
-MATCHER_P(DivN, n, (negation ? "is not" : "is") + string("divisible by ") + std::to_string(n))
+MATCHER_P(DivN, n, (negation ? "is not" : "is") + string(" divisible by ") + std::to_string(n))
 {
     return (arg % n) == 0;
 }
