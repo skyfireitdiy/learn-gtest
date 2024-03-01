@@ -24,9 +24,9 @@ using testing::Return;
 TEST(TestComplex, Case1)
 {
     MockComplex comp;
-    EXPECT_CALL(comp, _calc(5, 6)).WillRepeatedly(Return(100));
     EXPECT_CALL(comp, _calc(_, _)).WillRepeatedly(Return(10));
+    EXPECT_CALL(comp, _calc(5, 6)).WillRepeatedly(Return(100));
 
-    EXPECT_EQ(comp.calc(5, 1, 2, 3, 4, 5, 6, 6, 10), 10);
+    EXPECT_EQ(comp.calc(5, 1, 2, 3, 4, 5, 6, 6, 10), 100);
     EXPECT_EQ(comp.calc(0, 1, 2, 3, 4, 5, 6, 7, 10), 10);
 }
