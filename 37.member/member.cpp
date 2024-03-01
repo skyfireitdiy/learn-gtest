@@ -65,7 +65,7 @@ TEST(TestCalc, Case1)
     MockCalc calc;
     EXPECT_CALL(calc, calc(Field("r", &Complex::r, Gt(0)), _));
 
-    calc.calc(Complex {0, 2}, Complex {1, 2});
+    calc.calc(Complex {1, 2}, Complex {1, 2});
 }
 
 using testing::Property;
