@@ -28,6 +28,7 @@ TEST(TestCalc, Case1)
 }
 
 using testing::AllArgs;
+using testing::Truly;
 
 TEST(TestCalc, Case2)
 {
@@ -47,4 +48,27 @@ TEST(TestCalc, Case3)
     EXPECT_CALL(calc, calc(_, _, _)).With(AllOf(Args<0, 1>(Lt()), Args<1, 2>(Gt())));
 
     calc.calc(3, 4, 2);
+}
+
+#include <tuple>
+
+TEST(TestCalc, Case4)
+{
+    MockCalc calc;
+    EXPECT_CALL(calc, calc(_, _, _)).With(Truly([](std::tuple<int, int, int> args) {
+        return std::get<0>(args) < std::get<1>(args)
+               && std::get<1>(args) < std::get<2>(args);
+    }));
+
+    calc.calc(4, 5, 6);
+}
+
+TEST(TestCalc, Case5)
+{
+    MockCalc calc;
+    EXPECT_CALL(calc, calc(_, _, _)).With(Args<1, 2>(Truly([](std::tuple<int, int> args) {
+        return std::get<0>(args) < std::get<1>(args);
+    })));
+
+    calc.calc(10, 5, 6);
 }
