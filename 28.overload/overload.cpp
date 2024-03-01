@@ -15,6 +15,11 @@ int UseCalc(Calc &c, int a)
     return c.calc(a);
 }
 
+int UseCalc(Calc &c, int a, int b)
+{
+    return c.calc(a, b);
+}
+
 int UseCalc(Calc &c, double a)
 {
     return c.calc(a);
@@ -23,11 +28,6 @@ int UseCalc(Calc &c, double a)
 int UseCalc(const Calc &c, int a)
 {
     return c.calc(a);
-}
-
-int UseCalc(Calc &c, int a, int b)
-{
-    return c.calc(a, b);
 }
 
 class MockCalc : public Calc
@@ -48,10 +48,10 @@ TEST(TestCalc, Case1)
 {
     MockCalc calc;
     EXPECT_CALL(calc, calc(An<int>())).Times(1).WillRepeatedly(Return(1));
-    EXPECT_CALL(calc, calc(_, _)).Times(2).WillRepeatedly(Return(2));
+    EXPECT_CALL(calc, calc(An<int>(), An<int>())).Times(2).WillRepeatedly(Return(2));
 
     const MockCalc calc2;
-    EXPECT_CALL(Const(calc2), calc(_)).Times(1).WillRepeatedly(Return(3));
+    EXPECT_CALL(Const(calc2), calc(An<int>())).Times(1).WillRepeatedly(Return(3));
 
     EXPECT_CALL(calc, calc(An<double>())).Times(1).WillRepeatedly(Return(4));
 
