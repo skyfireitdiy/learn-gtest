@@ -2,21 +2,21 @@
 #include "gtest/gtest.h"
 #include <gmock/gmock-matchers.h>
 
-class Calc 
+class Calc
 {
-    public:
+public:
     virtual int calc(int *pa, int *pb) = 0;
 };
 
 class MockCalc : public Calc
 {
-    public:
-    MOCK_METHOD(int, calc, (int *pa, int *pb),(override));
+public:
+    MOCK_METHOD(int, calc, (int *pa, int *pb), (override));
 };
 
-using testing::Pointee;
 using testing::Gt;
 using testing::Lt;
+using testing::Pointee;
 
 TEST(TestCalc, Case1)
 {
@@ -27,4 +27,3 @@ TEST(TestCalc, Case1)
     int b = 5;
     c.calc(&a, &b);
 }
-
